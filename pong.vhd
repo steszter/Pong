@@ -33,7 +33,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity pong is
     Port ( clk : in STD_LOGIC;--pixel clock at frequency of VGA mode being used
-           button: in STD_LOGIC; --resetelünk vele
+           button: in STD_LOGIC; --reset button
            gameon: in STD_LOGIC;
            gameon_led: out STD_LOGIC;
            left_player_button_up: in STD_LOGIC;
@@ -82,7 +82,7 @@ constant right_paddle_x: INTEGER := 615;
 signal left_paddle_y: INTEGER := 240;
 signal right_paddle_y: INTEGER := 240;
 
---paddles size:
+--paddles' size:
 constant paddle_half_width: INTEGER := 5;
 constant paddle_half_height: INTEGER := 30;
 constant left_paddle_startx: INTEGER := left_paddle_x - paddle_half_width;
@@ -144,7 +144,7 @@ signal color_lose_left: STD_LOGIC := '0';
 signal color_win_right: STD_LOGIC := '0';
 signal color_lose_right: STD_LOGIC := '0';
 
---random:
+--for random numbers:
 signal lfsr: signed(9 downto 0) := "1011011101";
 signal lfsr2: signed(9 downto 0) := "0101100110";
 
@@ -415,7 +415,7 @@ if (clk_sig'event and clk_sig = '1') then
         gameon_led <= '0';
     end if;
 
-    -- kirajzolas
+    -- draw
     if (v_count < v_addr_time and h_count < h_addr_time) then
         -- paddle
 
@@ -437,7 +437,7 @@ if (clk_sig'event and clk_sig = '1') then
             else
                 RGB_sig <= "111111111111";
             end if;
-        -- kozepvonal
+        -- line at the center
         elsif h_count = h_addr_time/2 then
             RGB_sig <= "111111111111";
         -- ball
